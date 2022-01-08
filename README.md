@@ -1,2 +1,2 @@
-# e-commerce_no_country
-Proyecto e-commerce para  corche 2
+# C2-G11
+E-commerce Project
