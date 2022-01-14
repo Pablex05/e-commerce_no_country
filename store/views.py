@@ -6,11 +6,12 @@ from django.http import JsonResponse
 import json
 import datetime
 from .models import *
-from .forms import CreateUserForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from .forms import NewUserForm
+from django.contrib.auth import login
+from django.contrib import messages
 
 # Create your views here.
 
@@ -29,8 +30,6 @@ def store(request):
     products = Product.objects.all()
     context = {'products': products, 'cartItems': cartItems, 'shipping': False}
     return render(request, 'store/store.html', context)
-
-
 
 def cart(request):
     if request.user.is_authenticated:
@@ -112,6 +111,18 @@ def logout(request):
 
 
 def register(request):
+    if request.method == "POST":
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful.")
+            return redirect('store/store.html')
+        messages.error(request, "Unsuccessful registration. Invalid information.")
+    form = NewUserForm()
+    return render(request=request, template_name="store/register.html", context={"register_form": form})
+
+"""
     # if request.session.get('id') != None:  # Regístrese solo cuando no haya iniciado sesión
     #   return redirect('store/store.html')
     if request.method == 'POST':
@@ -132,7 +143,7 @@ def register(request):
         request.session['id'] = user.id  # Registrar que el usuario ha iniciado sesión
         return redirect('store/store.html')
     return render(request, 'store/register.html')
-
+"""
 
 def profile(request, username=None):
     current_user = request.user

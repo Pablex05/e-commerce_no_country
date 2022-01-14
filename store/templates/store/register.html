@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 
+ <!--
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <div class="fadeIn first">
@@ -9,7 +10,7 @@
             <img src="{% static 'images/logo2.png' %}" width="100px" alt="User Icon">
             <br/><br/>
         </div>
-        <form action="/register/" method="post">
+        <form method="post">
             {% csrf_token %}
             <input type="text" class="fadeIn second" name="username" placeholder="Nombre de Usuario">
             <input type="text" class="fadeIn second" name="email" placeholder="email">
@@ -18,5 +19,21 @@
         </form>
     </div>
 </div>
+-->
+
+
+<div class="container py-5">
+	<h1>Register</h1>
+	<form method="POST">
+		{% csrf_token %}
+		{{ register_form }}
+		<button class="btn btn-primary" type="submit">Register</button>
+	</form>
+	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+</div>
+
+
+
+
 
 {% endblock content %}
