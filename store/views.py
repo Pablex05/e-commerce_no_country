@@ -6,7 +6,7 @@ from django.http import JsonResponse
 import json
 import datetime
 from .models import *
-
+from .forms import CreateUserForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
@@ -15,12 +15,20 @@ from django.shortcuts import render
 # Create your views here.
 
 def store(request):
-    login_name = ''
-    if request.session.get('id'):
-        user = models.User.objects.get(id=request.session.get('id'))
-        login_name = user.username
 
-    return render(request, 'store/store.html', {"current_user": login_name})
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+        cartItems = order['get_cart_items']
+
+    products = Product.objects.all()
+    context = {'products': products, 'cartItems': cartItems, 'shipping': False}
+    return render(request, 'store/store.html', context)
 
 
 
@@ -76,8 +84,6 @@ def login(request):
         return render(request, 'store/login.html')
 """
 
-
-
     if request.session.get('id') != None:  # Puede iniciar sesión solo cuando no haya iniciado sesión
         return redirect('/')
     if request.method == 'POST':
@@ -106,22 +112,22 @@ def logout(request):
 
 
 def register(request):
-    if request.session.get('id') != None:  # Regístrese solo cuando no haya iniciado sesión
-        return redirect('store/store.html')
+    # if request.session.get('id') != None:  # Regístrese solo cuando no haya iniciado sesión
+    #   return redirect('store/store.html')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        email = request.POST.get('email')
+        # email = request.POST.get('email')
         username = username.strip()  # Eliminar espacios y líneas nuevas
         password = password.strip()
-        email = email.strip()
-        if models.User.objects.filter(username=username, email=email).exists():
+        # email = email.strip()
+        if models.User.objects.filter(username=username).exists():
             message = 'este usuario ha sido registrado'
             return render(request, 'store/register.html', {"message": message})
         user = models.User()
         user.username = username
         user.password = password
-        user.email = email
+        # user.email = email
         user.save()
         request.session['id'] = user.id  # Registrar que el usuario ha iniciado sesión
         return redirect('store/store.html')
@@ -137,6 +143,7 @@ def profile(request, username=None):
         posts = current_user.posts.all()
         user = current_user
     return render(request, 'social/profile.html', {'user': user, 'posts': posts})
+
 
 """
 def follow(request, username):
@@ -158,6 +165,7 @@ def unfollow(request, username):
     messages.success(request, f'Ya no sigues a {username}')
     return redirect('feed')
 """
+
 
 def UpdateItem(request):
     data = json.loads(request.body)
