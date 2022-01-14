@@ -1,0 +1,22 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <div class="fadeIn first">
+            <br/><br/>
+            <img src="{% static 'images/logo2.png' %}" width="100px" alt="User Icon">
+            <br/><br/>
+        </div>
+        <form action="/register/" method="post">
+            {% csrf_token %}
+            <input type="text" class="fadeIn second" name="username" placeholder="Nombre de Usuario">
+            <input type="text" class="fadeIn second" name="email" placeholder="email">
+            <input type="password" class="fadeIn third" name="password" placeholder="Contraseña">
+            <input type="submit" class="fadeIn fourth" value="Registrarse">
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<!-- Profile -->
+<div class="profile">
+
+	<h2>@{{ user.username }}</h2>
+
+	{% if request.user.is_authenticated %}
+		{% if user.username != request.user.username %}
+			{% if user not in request.user.profile.following %}
+			<button><a class="follow-button" href="{% url 'follow' user %}">Follow</a></button>
+			{% else %}
+			<button><a class="follow-button" href="{% url 'unfollow' user %}">Unfollow</a></button>
+			{% endif %}
+		{% endif %}
+	{% endif %}
+	
+	
+</div>
+
+{% endblock content %}

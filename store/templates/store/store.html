@@ -3,87 +3,23 @@
 {% block content %}
 
 <div class="row">
+    {% for product in products %}
     <div class="col-lg-4">
-        <img class="thumbnail" src="{% static 'images/bananas.jpg' %}">
+        <img class="thumbnail" src="{{product.imageURL}}">
         <div class="box-element product">
-            <h6><strong> Banana x Kg. </strong></h6>
+            <h6><strong>{{product.name}}</strong></h6>
             <hr>
 
-            <button style="border-radius: 5px" class="btn btn-success";>Añadir al carrito</button>
-            <a style="border-radius: 5px" class="btn btn-light" href="#">Ver más</a>
-            <h4 style="float:right"><strong>$240</strong></h4>
+            <!-- Agregué Botón Añadir carrito -->
+            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Añadir al Carrito</button>
+
+            <!-- <button style="border-radius: 5px" class="btn btn-success";>Añadir al carrito</button> -->
+            <a style="border-radius: 5px" class="btn btn-outline-success" href="#">Ver más</a>
+            <h4 style="float:right"><strong>${{product.price|floatformat:2}}</strong></h4>
             
         </div>
     </div>
-
-    <div class="col-lg-4">
-        <img class="thumbnail" src="{% static 'images/naranjas.jpg' %}">
-        <div class="box-element product">
-            <h6><strong> Naranja x Kg. </strong></h6>
-            <hr>
-            
-            <button style="border-radius: 5px" class="btn btn-success">Añadir al carrito</button>
-            <a style="border-radius: 5px" class="btn btn-light" href="#">Ver más</a>
-            <h4 style="float: right"><strong>$85</strong></h4>
-            
-        </div>
-    </div>
-
-    <div class="col-lg-4">
-        <img class="thumbnail" src="{% static 'images/peras.jpg' %}">
-        <div class="box-element product">
-            <h6><strong> Pera x Kg. </strong></h6>
-            <hr>
-
-            <button style="border-radius: 5px" class="btn btn-success">Añadir al carrito</button>
-            <a style="border-radius: 5px" class="btn btn-light" href="#">Ver más</a>
-            <h4 style="float: right"><strong>$169</strong></h4>
-
-        </div>
-    </div>
-</div>
-
-<br><br> <!-- Espacio entre fotos de Productos -->
-
-<div class="row">
-    <div class="col-lg-4">
-        <img class="thumbnail" src="{% static 'images/arandanos.jpg' %}">
-        <div class="box-element product">
-            <h6><strong> Arándano x Kg. </strong></h6>
-            <hr>
-
-            <button style="border-radius: 5px"  class="btn btn-success">Añadir al carrito</button>
-            <a style="border-radius: 5px" class="btn btn-light" href="#">Ver más</a>
-            <h4 style="float:right"><strong>$750</strong></h4>
-
-        </div>
-    </div>
-
-    <div class="col-lg-4">
-        <img class="thumbnail" src="{% static 'images/paltas.jpg' %}">
-        <div class="box-element product">
-            <h6><strong> Palta x Kg. </strong></h6>
-            <hr>
-            
-            <button style="border-radius: 5px" class="btn btn-success">Añadir al carrito</button>
-            <a style="border-radius: 5px" class="btn btn-light" href="#">Ver más</a>
-            <h4 style="float: right"><strong>$300</strong></h4>
-            
-        </div>
-    </div>
-
-    <div class="col-lg-4">
-        <img class="thumbnail" src="{% static 'images/mandarinas.jpg' %}">
-        <div class="box-element product">
-            <h6><strong> Mandarina x Kg. </strong></h6>
-            <hr>
-
-            <button style="border-radius: 5px" class="btn btn-success">Añadir al carrito</button>
-            <a style="border-radius: 5px" class="btn btn-light" href="#">Ver más</a>
-            <h4 style="float: right"><strong>$100</strong></h4>
-
-        </div>
-    </div>
+    {% endfor %}
 </div>
 
 {% endblock content %}

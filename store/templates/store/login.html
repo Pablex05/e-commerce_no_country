@@ -1,0 +1,22 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <div class="fadeIn first">
+            <br/><br/>
+            <img src="{% static 'images/logo2.png' %}" width="100px" alt="User Icon"/>
+            <br/><br/>
+        </div>
+        <form action="/login/" method="post">
+            {% if error_message %}
+                <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+            {% endif %}
+            {% csrf_token %}
+            <input type="text" class="fadeIn second" name="username" placeholder="Usuario">
+            <input type="password" class="fadeIn third" name="password" placeholder="contraseña">
+            <input type="submit" class="fadeIn fourth" value="Iniciar Sesion">
+        </form>
+    </div>
+</div>
+{% endblock content %}

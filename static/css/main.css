@@ -6,12 +6,17 @@ h1,h2,h3,h4,h5,h6{
 	color:hsl(0, 0%, 30%);
 }
 
+/*** Inicio Cambios ***/
+
 .box-element{
 	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
 	background-color: #fff;
 	border-radius: 4px;
 	padding: 10px;
+	margin-bottom: 30px;
 }
+
+/*** Fin Cambios ***/
 
 .thumbnail{
 	width: 100%;
@@ -44,6 +49,7 @@ h1,h2,h3,h4,h5,h6{
 	height: 25px;
 	border-radius: 50%;
 	font-size: 14px;
+	margin-right: 16px;
 }
 
 .col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12{
@@ -52,7 +58,6 @@ h1,h2,h3,h4,h5,h6{
 
 .btn{
 	border-radius: 0;
-	
 }
 
 .row-image{
@@ -65,10 +70,18 @@ h1,h2,h3,h4,h5,h6{
 	padding: 5px;
 }
 
-/* Empiezan Cambios */
+/*** Inicio Cambios ***/
+
+.btn-block{
+	margin-bottom: 25px;
+}
+
+.btn-outline-dark{
+	margin-bottom: 30px;
+}
 
 .container{
-	margin-bottom: 60px;
+	margin-bottom: 50px;
 }
 
 .cart-row{
@@ -84,7 +97,11 @@ h1,h2,h3,h4,h5,h6{
 .quantity{
 	display: inline-block;
 	font-weight: 500;
-	padding-right:10px;
+	padding-right:5px;
+}
+
+.navbar-brand{
+	margin-right: 0px;
 }
 
 .chg-quantity{
@@ -100,13 +117,13 @@ h1,h2,h3,h4,h5,h6{
 	opacity: .6;
 }
 
-/* Fin Cambios */
+/*** Fin Cambios ***/
 
 .hidden{
 	display: none!important;
 }
 
-/* Empiezan Cambios */
+/*** Inicio Cambios ***/
 
 @media (max-width:550px){
 	.cart-row{
@@ -163,4 +180,4 @@ h1,h2,h3,h4,h5,h6{
 	}
 }
 
-/* Fin Cambios */
+/*** Fin Cambios ***/
