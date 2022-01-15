@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
- <!--
+
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <div class="fadeIn first">
@@ -14,14 +14,16 @@
             {% csrf_token %}
             <input type="text" class="fadeIn second" name="username" placeholder="Nombre de Usuario">
             <input type="text" class="fadeIn second" name="email" placeholder="email">
-            <input type="password" class="fadeIn third" name="password" placeholder="Contraseña">
+            <input type="password" class="fadeIn third" name="password1" placeholder="Contraseña">
+            <input type="password" class="fadeIn third" name="password2" placeholder="Confirmar Contraseña">
             <input type="submit" class="fadeIn fourth" value="Registrarse">
         </form>
     </div>
 </div>
--->
 
 
+
+ <!--
 <div class="container py-5">
 	<h1>Register</h1>
 	<form method="POST">
@@ -32,7 +34,7 @@
 	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
 </div>
 
-
+-->
 
 
 

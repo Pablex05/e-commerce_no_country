@@ -12,16 +12,20 @@ from django.shortcuts import render, redirect
 from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 def store(request):
-
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
+
+        products = Product.objects.all()
+        context = {'products': products, 'cartItems': cartItems, 'shipping': False}
+        return render(request, 'store/store.html', context)
     else:
         items = []
         order = {'get_cart_total': 0, 'get_cart_items': 0}
@@ -31,6 +35,7 @@ def store(request):
     context = {'products': products, 'cartItems': cartItems, 'shipping': False}
     return render(request, 'store/store.html', context)
 
+@login_required
 def cart(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -45,7 +50,7 @@ def cart(request):
     context = {'items': items, 'order': order, 'cartItems': cartItems, 'shipping': False}
     return render(request, 'store/cart.html', context)
 
-
+@login_required
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -61,28 +66,7 @@ def checkout(request):
     return render(request, 'store/checkout.html', context)
 
 
-def login(request):
-    """
-    if request.method == 'POST':
-        # Process the request if posted data are available
-        username = request.POST['username']
-        password = request.POST['password']
-        # Check username and password combination if correct
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            # Save session as cookie to login the user
-            login(request, user)
-            # Success, now let's login the user.
-            return render(request, 'store/login.html')
-        else:
-            # Incorrect credentials, let's throw an error to the screen.
-            return render(request, 'store/login.html',
-                          {'error_message': 'Incorrect username and / or password.'})
-    else:
-        # No post data availabe, let's just show the page to the user.
-        return render(request, 'store/login.html')
-"""
-
+def login_user(request):
     if request.session.get('id') != None:  # Puede iniciar sesión solo cuando no haya iniciado sesión
         return redirect('/')
     if request.method == 'POST':
@@ -104,7 +88,7 @@ def login(request):
                 return render(request, 'store/login.html', {"message": message})
     return render(request, 'store/login.html')
 
-
+@login_required
 def logout(request):
     request.session.flush()
     return render('store/login.html')
@@ -115,12 +99,12 @@ def register(request):
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            Customer.objects.create(user=user)
             login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect('store/store.html')
-        messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = NewUserForm()
-    return render(request=request, template_name="store/register.html", context={"register_form": form})
+            messages.success(request, f"Registro Exitoso!, Bienvenido {user}")
+            return redirect('/')
+        messages.error(request, "Error en registrar el Usuario - complete correctamente los campos.")
+    return render(request, 'store/register.html')
 
 """
     # if request.session.get('id') != None:  # Regístrese solo cuando no haya iniciado sesión
@@ -145,6 +129,7 @@ def register(request):
     return render(request, 'store/register.html')
 """
 
+@login_required
 def profile(request, username=None):
     current_user = request.user
     if username and username != current_user.username:
@@ -177,7 +162,7 @@ def unfollow(request, username):
     return redirect('feed')
 """
 
-
+@login_required
 def UpdateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
@@ -204,7 +189,7 @@ def UpdateItem(request):
 
     return JsonResponse('Item was added', safe=False)
 
-
+@login_required
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
@@ -231,5 +216,4 @@ def processOrder(request):
             state=data['shipping']['state'],
             zipcode=data['shipping']['zipcode'],
         )
-
     return JsonResponse('Payment complete!', safe=False)

@@ -8,7 +8,7 @@
             <img src="{% static 'images/logo2.png' %}" width="100px" alt="User Icon"/>
             <br/><br/>
         </div>
-        <form action="/login/" method="post">
+        <form action="/login_user/" method="post">
             {% if error_message %}
                 <p class="bg-danger p-d ml-b">{{ error_message }}</p>
             {% endif %}
