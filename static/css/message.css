@@ -6,7 +6,7 @@
 	border-radius: 5px; /* Borde del boton */
 	letter-spacing: 2px; /* Espacio entre letras */
 	background-color: #c8e5bc; /* Color de fondo */
-	padding: 18px 30px;  /* Relleno del boton */
+	/*padding: 18px 30px;   Relleno del boton */
 	position: fixed;
 	bottom: 40px;
 	left: 40px;

@@ -7,63 +7,44 @@ import json
 import datetime
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+
 # Create your views here.
 
 def store(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_cart_items
-
-        products = Product.objects.all()
-        context = {'products': products, 'cartItems': cartItems, 'shipping': False}
-        return render(request, 'store/store.html', context)
-    else:
-        items = []
-        order = {'get_cart_total': 0, 'get_cart_items': 0}
-        cartItems = order['get_cart_items']
-
+    order, items, cartItems = list_product(request)
     products = Product.objects.all()
     context = {'products': products, 'cartItems': cartItems, 'shipping': False}
     return render(request, 'store/store.html', context)
 
+
 @login_required
 def cart(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_cart_items
-    else:
-        items = []
-        order = {'get_cart_total': 0, 'get_cart_items': 0}
-        cartItems = order['get_cart_items']
-
+    order, items, cartItems = list_product(request)
     context = {'items': items, 'order': order, 'cartItems': cartItems, 'shipping': False}
     return render(request, 'store/cart.html', context)
 
-@login_required
+
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
+        context = {'items': items, 'order': order, 'cartItems': cartItems, 'shipping': False}
+        return render(request, 'store/checkout.html', context)
     else:
         items = []
         order = {'get_cart_total': 0, 'get_cart_items': 0}
         cartItems = order['get_cart_items']
-
-    context = {'items': items, 'order': order, 'cartItems': cartItems, 'shipping': False}
-    return render(request, 'store/checkout.html', context)
+        messages.success(request, "Tiene que INICIAR SESION")  # corregir y aplicar decorator de autenticacion
+        return redirect('/')
 
 
 def login_user(request):
@@ -78,20 +59,41 @@ def login_user(request):
             try:
                 user = models.User.objects.get(username=username)
             except:
-                message = 'El nombre de usuario no existe'
+                messages.success(request, 'El nombre de usuario no existe')
                 return render(request, 'store/login.html', {"message": message})
             if user.password == password:
                 request.session['id'] = user.id  # Registrar que el usuario ha iniciado sesión
                 return redirect('store/store.html')
             else:
-                message = 'contraseña incorrecta'
-                return render(request, 'store/login.html', {"message": message})
+                messages.success(request, 'contraseña incorrecta')
+                return render(request, 'store/login.html')
     return render(request, 'store/login.html')
 
+
+def list_product(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+        cartItems = order['get_cart_items']
+
+    return order, items, cartItems
+
+
 @login_required
-def logout(request):
-    request.session.flush()
-    return render('store/login.html')
+def logout_user(request):
+    if request.session.get('id') != None:  # Puede iniciar sesión solo cuando no haya iniciado sesión
+        return redirect('/')
+    try:
+        request.session.flush()
+    except:
+        messages.success(request, 'Deslogueo no Exitoso, intentelo mas tarde')
+        return redirect('/')
+    return redirect('/')
 
 
 def register(request):
@@ -103,8 +105,9 @@ def register(request):
             login(request, user)
             messages.success(request, f"Registro Exitoso!, Bienvenido {user}")
             return redirect('/')
-        messages.error(request, "Error en registrar el Usuario - complete correctamente los campos.")
+        messages.success(request, "Error en registrar el Usuario - complete correctamente los campos.")
     return render(request, 'store/register.html')
+
 
 """
     # if request.session.get('id') != None:  # Regístrese solo cuando no haya iniciado sesión
@@ -128,6 +131,7 @@ def register(request):
         return redirect('store/store.html')
     return render(request, 'store/register.html')
 """
+
 
 @login_required
 def profile(request, username=None):
@@ -162,6 +166,7 @@ def unfollow(request, username):
     return redirect('feed')
 """
 
+
 @login_required
 def UpdateItem(request):
     data = json.loads(request.body)
@@ -188,6 +193,7 @@ def UpdateItem(request):
         orderItem.delete()
 
     return JsonResponse('Item was added', safe=False)
+
 
 @login_required
 def processOrder(request):

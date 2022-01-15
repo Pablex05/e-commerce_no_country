@@ -9,9 +9,6 @@
             <br/><br/>
         </div>
         <form action="/login_user/" method="post">
-            {% if error_message %}
-                <p class="bg-danger p-d ml-b">{{ error_message }}</p>
-            {% endif %}
             {% csrf_token %}
             <input type="text" class="fadeIn second" name="username" placeholder="Usuario">
             <input type="password" class="fadeIn third" name="password" placeholder="contraseña">

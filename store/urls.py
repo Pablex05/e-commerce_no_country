@@ -11,6 +11,6 @@ urlpatterns = [
     path('update_item/', views.UpdateItem, name="update_item"),
     path('process_order/', views.processOrder, name="process_order"),
     path('login_user/', LoginView.as_view(template_name='store/login.html'), name="login_user"),
-    path('logout/', LogoutView.as_view(template_name='store/main.html'), name="logout"),
+    path('logout_user/', views.logout_user, name="logout_user"),
     path('register/', views.register, name="register"),
 ]
