@@ -6,7 +6,7 @@
     <div class="col-lg-12">
         <div class="box-element">
 
-            <a  class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; Continuar Comprando</a>
+            <a  class="btn btn-success" href="{% url 'store' %}">&#x2190; Continuar Comprando</a>
 
             <table class="table">
                 <tr>
@@ -29,21 +29,22 @@
                 <div style="flex:1"><strong>Cantidad</strong></div>
                 <div style="flex:1"><strong>Total</strong></div>
             </div>
-            
+
             {% for item in items %}
             <div class="cart-row">
                 <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
                 <div style="flex:2"><p>{{item.product.name}}</p></div>
                 <div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
-                <div style="flex:1">                
+                <div style="flex:1">
                     <div style="display:inline-flex" class="quantity">
                         <p class="quantity">{{item.quantity}}</p>
                         <img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
-                
+
                         <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
                     </div>
                 </div>
-                <div style="flex:1"><p>${{item.get_total|floatformat:2}}</p></div>
+                <div style="flex:1"><p>${{item.get_total|floatformat:2}}</p><div style="flex:1"><img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity2 update-cart" src="{% static  'images/tacho.jpeg' %}"></div></div>
+
             </div>
             {% endfor %}
         </div>

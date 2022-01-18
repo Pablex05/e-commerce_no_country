@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
+from django.conf.urls import include
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
+from .views import activate
 
 urlpatterns = [
     path('', views.store, name="store"),
@@ -13,4 +15,6 @@ urlpatterns = [
     path('login_user/', LoginView.as_view(template_name='store/login.html'), name="login_user"),
     path('logout_user/', views.logout_user, name="logout_user"),
     path('register/', views.register, name="register"),
+    path('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', activate,
+         name='activate'),
 ]

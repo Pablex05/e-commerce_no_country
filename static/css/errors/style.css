@@ -1,0 +1,16 @@
+html{
+  background-color: black;
+}
+svg {
+  margin: 0 auto;
+  display: block;
+  margin-top: 50px;
+}
+polygon {
+  transform:rotateY(-180deg) scale(0);
+  transition: all 0.4s cubic-bezier(0.590, 0.720, 0.375, 1.650);
+  transform-origin:center;
+}
+polygon.processed {
+  transform:rotateY(0deg) scale(1);
+}

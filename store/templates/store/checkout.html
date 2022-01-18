@@ -21,15 +21,44 @@
                     <div class="form-field">
                         <input required class="form-control" type="cellphone" name="cellphone" placeholder="Celular..">
                     </div>
+                </div>
 
+                <hr>
+
+                <div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Retiro en el local
+                        </label>
+                      </div>
+                </div>
+
+                <div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Paypal
+                        </label>
+                      </div>
+                </div>
+
+                <div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Mercado pago
+                        </label>
+                      </div>
                 </div>
 
                 <div id="shipping-info">
+                    <div id="datos-compra">
                     <hr>
                     <p>Datos Compra:</p>
                     <hr>
                     <div class="form-field">
-                        <input class="form-control" type="text" name="address" placeholder="Direccion..">
+                        <input requiered class="form-control" type="text" name="address" placeholder="Direccion..">
                     </div>
                     <div class="form-field">
                         <input class="form-control" type="text" name="city" placeholder="Ciudad..">
@@ -40,13 +69,16 @@
                     <div class="form-field">
                         <input class="form-control" type="text" name="zipcode" placeholder="Codigo Postal..">
                     </div>
+                    </div>
                     <hr>
+                    <div class="datos-tarjeta">
+                        <hr>
                     <p>Datos Tarjeta:</p>
                     <hr>
                     <div class="form-group owner">
                     <label for="owner">Titular</label>
                     <input type="text" class="form-control" id="owner" placeholder="Nombre Apellido..">
-                    </div>         
+                    </div>
                     <div class="form-group CVV">
                         <label for="cvv">Codigo de Seguridad</label>
                         <input type="text" class="form-control" id="cvv" placeholder="XXX">
@@ -55,49 +87,32 @@
                         <label for="cardNumber">Numero de la Tarjeta</label>
                         <input type="text" class="form-control" id="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX">
                     </div>
-                    <div class="form-group" id="expiration-date">
-                        <label>Fecha de Expiracion</label>
-                        <select>
-                            <option value="01">Enero</option>
-                            <option value="02">Febrero </option>
-                            <option value="03">Marzo</option>
-                            <option value="04">Abril</option>
-                            <option value="05">Mayo</option>
-                            <option value="06">Junio</option>
-                            <option value="07">Julio</option>
-                            <option value="08">Agosto</option>
-                            <option value="09">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
-                        </select>
-                        <select>
-                            <option value="16"> 2016</option>
-                            <option value="17"> 2017</option>
-                            <option value="18"> 2018</option>
-                            <option value="19"> 2019</option>
-                            <option value="20"> 2020</option>
-                            <option value="21"> 2021</option>
-                            <option value="22"> 2022</option>
-                            <option value="23"> 2023</option>
-                            <option value="24"> 2024</option>
-                            <option value="25"> 2025</option>
-                        </select>
-                    </div>
                 
+
+                    <label for="start">Fecha de expiración:</label>
+
+                    <input type="date" id="start" name="trip-start"
+                           value="2022-01-01"
+                           min="2022-01-01" max="2025-12-31">
+
+
+
                     <div class="form-group" id="credit_cards">
                         <img class="row-image" src="{% static 'images/visa.png' %}" id="visa">
                         <img class="row-image" src="{% static 'images/mastercard.png' %}" id="mastercard">
                         <img class="row-image" src="{% static 'images/americanexpress.png' %}" id="americanexpress">
                     </div>
                 </div>
+
+            </div>
+
                 <hr>
                 <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continuar">
             </form>
         </div>
 
         <!-- Inicio Cambios -->
-        
+
         <div class="box-element hidden" id="payment-info">
             <!-- <small>Paypal Options</small> -->
             <button id="make-payment">Comprar</button>
@@ -109,7 +124,7 @@
 
     <div class="col-lg-6">
         <div class="box-element">
-            <a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Regresar al Carrito</a>
+            <a  class="btn btn-success" href="{% url 'cart' %}">&#x2190; Regresar al Carrito</a>
             <hr>
             <h3>Orden de Compra</h3>
             <hr>
@@ -128,7 +143,7 @@
 </div>
 
 <!-- Inicio Cambios -->
-<script type="text/javascript"> 
+<script type="text/javascript">
     var shipping = '{{order.shipping}}'
     var total = '{{order.get_cart_total}}'
 
@@ -154,7 +169,7 @@
     //Revisar Funcionalidad - FIN
 
     // Funcionalidad para realizar el pago.
-    
+
     var form = document.getElementById('form')
 
     form.addEventListener('submit', function(e){
@@ -170,7 +185,7 @@
 
     function submitFormData(){
         console.log('Payment button clicked')
-            
+
         var userFormData = {
             'name':null,
             'email':null,
@@ -202,14 +217,14 @@
             headers:{
                 'Content-Type':'applicaiton/json',
                 'X-CSRFToken':csrftoken,
-            }, 
+            },
             body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
 	    })
 
         .then((response) => response.json())
         .then((data) => {
             console.log('Success:', data);
-            alert('Transaction completed');  
+            alert('Transaction completed');
             window.location.href = "{% url 'store' %}"
         })
 

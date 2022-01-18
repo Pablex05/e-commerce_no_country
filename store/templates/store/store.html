@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div class="row">
+<div class="row" id="resultado">
     {% for product in products %}
     <div class="col-lg-4">
         <img class="thumbnail" src="{{product.imageURL}}">
@@ -11,10 +11,10 @@
             <hr>
 
             <!-- Agregué Botón Añadir carrito -->
-            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Añadir al Carrito</button>
+            <button data-product="{{product.id}}" data-action="add" class="btn btn-success add-btn update-cart">Añadir al Carrito</button>
 
             <!-- <button style="border-radius: 5px" class="btn btn-success";>Añadir al carrito</button> -->
-            <a style="border-radius: 5px" class="btn btn-outline-success" href="#">Ver más</a>
+            
             <h4 style="float:right"><strong>${{product.price|floatformat:2}}</strong></h4>
             
         </div>

@@ -1,11 +1,8 @@
 html {
-    background-color: #56baed;
+    /*background-color: #56baed;*/
 }
 
-body {
-    font-family: "Poppins", sans-serif;
-    height: 100vh;
-}
+
 
 a {
     color: #92badd;
@@ -48,18 +45,20 @@ h2 {
     position: relative;
     padding: 0px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    /*box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);*/
+    box-shadow: 0 30px 60px 0 hsla(140, 70%, 16%, 0.623);
     text-align: center;
 }
 
-#formFooter {
+/*#formFooter {
     background-color: #f6f6f6;
     border-top: 1px solid #dce8f1;
     padding: 25px;
     text-align: center;
     -webkit-border-radius: 0 0 10px 10px;
     border-radius: 0 0 10px 10px;
-}
+    border: solid 2px red;
+}*
 
 
 
@@ -141,7 +140,7 @@ input[type=password]:focus {
 input[type=password]:placeholder {
     color: #cccccc;
 }
-input[type=text] {
+input[type=text], input[type=name], input[type=phone], input[type=email], input[type=cellphone] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -183,6 +182,11 @@ input[type=text]:placeholder {
     animation-duration: 1s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
+}
+
+#fadeIn {
+    border: solid red 2px;
+    
 }
 
 @-webkit-keyframes fadeInDown {

@@ -17,7 +17,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -28,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store.apps.StoreConfig',
-
+    'verify_email.apps.VerifyEmailConfig',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +127,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'store'
 
+#Email
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'pablexhack@gmail.com'
+EMAIL_HOST_PASSWORD = 'x0377971'
+EMAIL_PORT = 587
