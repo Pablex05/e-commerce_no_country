@@ -5,15 +5,17 @@
     <div id="formContent">
         <div class="fadeIn first">
             <br/><br/>
-            <img src="{% static 'images/logo2.png' %}" width="100px" alt="User Icon"/>
+        
+            <img class="fondo-login" src="{% static 'images/logo.png' %}" width="300px" alt="User Icon"/>
             <br/><br/>
+    
         </div>
         <form action="/login_user/" method="post">
             {% csrf_token %}
             <input type="text" class="fadeIn second" name="username" placeholder="Usuario">
             <input type="password" class="fadeIn third" name="password" placeholder="contraseña">
-            <input type="submit" class="fadeIn fourth" value="Iniciar Sesion">
+            <input type="submit" class="fadeIn fourth fondo-login" value="Iniciar Sesion">
         </form>
     </div>
 </div>
-%}
+{% endblock content %}

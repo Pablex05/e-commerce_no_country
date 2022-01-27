@@ -2,9 +2,9 @@
 {% load static %}
 {% block content %}
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="box-element">
+<div class="row" id="prueba2">
+    <div class="col">
+        <div class="box-element" >
 
             <a  class="btn btn-success" href="{% url 'store' %}">&#x2190; Continuar Comprando</a>
 
@@ -21,9 +21,10 @@
         </div>
 
         <br>
+     
         <div class="box-element">
-            <div class="cart-row">
-                <div style="flex:2"><strong></strong></div>
+            <div class="cart-row" >
+                <div id="item" style="flex:2"><strong></strong></div>
                 <div class="strong-item" style="flex:2"><strong>Item</strong></div>
                 <div style="flex:1"><strong>Precio</strong></div>
                 <div style="flex:1"><strong>Cantidad</strong></div>
@@ -41,14 +42,16 @@
                         <img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
 
                         <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
+                        
                     </div>
                 </div>
-                <div style="flex:1"><p>${{item.get_total|floatformat:2}}</p><div style="flex:1"><img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity2 update-cart" src="{% static  'images/tacho.jpeg' %}"></div></div>
-
+                
+                <div style="flex:1"><p>${{item.get_total|floatformat:2}}</p><div style="flex:1"><img data-product="{{item.product.id}}" data-action="delete" class="chg-quantity2 update-cart" src="{% static  'images/tacho.jpeg' %}"></div></div>
             </div>
             {% endfor %}
         </div>
     </div>
-</div> <!-- Posible Trash para eliminar registros -->
+
+</div> 
 
 {% endblock content %}

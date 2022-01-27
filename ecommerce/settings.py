@@ -131,6 +131,7 @@ LOGIN_REDIRECT_URL = 'store'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'pablexhack@gmail.com'
-EMAIL_HOST_PASSWORD = 'x0377971'
+EMAIL_HOST_USER = 'vidaverde.ecommerce@gmail.com'
+EMAIL_HOST_PASSWORD = 'Vidaverde1234'
 EMAIL_PORT = 587
+

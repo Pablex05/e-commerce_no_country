@@ -1,5 +1,23 @@
 {% extends 'store/main.html' %}
 {% load static %}
+
+{% block buscador %}
+
+
+<form  class="form-inline my-2 my-lg-0" method="GET">
+    <div class="input-group"id="lupa">
+      <input type="search" class="form-control me-2" placeholder="Search..." name="buscar" value= "" >
+      <div class="input-group-append">
+        <button class="boton2" type="submit">
+          <i class="fas fa-search" ></i>
+        </button>
+      </div>
+      </div>
+    </form>
+    
+
+{% endblock buscador %}
+
 {% block content %}
 
 <div class="row" id="resultado">
@@ -11,7 +29,7 @@
             <hr>
 
             <!-- Agregué Botón Añadir carrito -->
-            <button data-product="{{product.id}}" data-action="add" class="btn btn-success add-btn update-cart">Añadir al Carrito</button>
+            <button data-product="{{product.id}}" data-action="add" class="btn btn-success add-btn update-cart" style="font-weight:bold">Añadir al Carrito</button>
 
             <!-- <button style="border-radius: 5px" class="btn btn-success";>Añadir al carrito</button> -->
             

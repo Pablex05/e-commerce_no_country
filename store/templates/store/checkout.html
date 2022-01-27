@@ -21,33 +21,16 @@
                     <div class="form-field">
                         <input required class="form-control" type="cellphone" name="cellphone" placeholder="Celular..">
                     </div>
+
                 </div>
 
-                <hr>
-
+                
+              
                 <div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick="EnableDisableTextbox(this);ResetTextbox(EnableDisableTextbox);">
                           Retiro en el local
-                        </label>
-                      </div>
-                </div>
-
-                <div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                          Paypal
-                        </label>
-                      </div>
-                </div>
-
-                <div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                          Mercado pago
                         </label>
                       </div>
                 </div>
@@ -55,47 +38,22 @@
                 <div id="shipping-info">
                     <div id="datos-compra">
                     <hr>
-                    <p>Datos Compra:</p>
+                    <p>Datos de Envío:</p>
                     <hr>
                     <div class="form-field">
-                        <input requiered class="form-control" type="text" name="address" placeholder="Direccion..">
+                        <input required class="form-control" id="shipto1" type="text" name="address" placeholder="Direccion..">
                     </div>
                     <div class="form-field">
-                        <input class="form-control" type="text" name="city" placeholder="Ciudad..">
+                        <input required class="form-control" id="shipto2"  type="text" name="city" placeholder="Ciudad..">
                     </div>
                     <div class="form-field">
-                        <input class="form-control" type="text" name="state" placeholder="Provincia..">
+                        <input required class="form-control" id="shipto3" type="text" name="state" placeholder="Provincia..">
                     </div>
                     <div class="form-field">
-                        <input class="form-control" type="text" name="zipcode" placeholder="Codigo Postal..">
+                        <input required class="form-control" id="shipto4" type="text" name="zipcode" placeholder="Codigo Postal..">
                     </div>
-                    </div>
-                    <hr>
-                    <div class="datos-tarjeta">
-                        <hr>
-                    <p>Datos Tarjeta:</p>
-                    <hr>
-                    <div class="form-group owner">
-                    <label for="owner">Titular</label>
-                    <input type="text" class="form-control" id="owner" placeholder="Nombre Apellido..">
-                    </div>
-                    <div class="form-group CVV">
-                        <label for="cvv">Codigo de Seguridad</label>
-                        <input type="text" class="form-control" id="cvv" placeholder="XXX">
-                    </div>
-                    <div class="form-group" id="card-number-field">
-                        <label for="cardNumber">Numero de la Tarjeta</label>
-                        <input type="text" class="form-control" id="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX">
                     </div>
                 
-
-                    <label for="start">Fecha de expiración:</label>
-
-                    <input type="date" id="start" name="trip-start"
-                           value="2022-01-01"
-                           min="2022-01-01" max="2025-12-31">
-
-
 
                     <div class="form-group" id="credit_cards">
                         <img class="row-image" src="{% static 'images/visa.png' %}" id="visa">
@@ -103,20 +61,21 @@
                         <img class="row-image" src="{% static 'images/americanexpress.png' %}" id="americanexpress">
                     </div>
                 </div>
-
-            </div>
-
                 <hr>
                 <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continuar">
             </form>
         </div>
 
         <!-- Inicio Cambios -->
-
+        
         <div class="box-element hidden" id="payment-info">
-            <!-- <small>Paypal Options</small> -->
-            <button id="make-payment">Comprar</button>
-            <!-- <div id="paypal-button-container"></div> -->
+            <button id="make-payment">Pago en el Local</button>
+            <br><br>
+ 
+            
+            <strong><small>Opciones Paypal</small></strong>
+            <div id="paypal-button-container"></div>
+            
         </div>
     </div>
 
@@ -142,22 +101,114 @@
     </div>
 </div>
 
-<!-- Inicio Cambios -->
+
+
+<script type="text/javascript">
+    
+    function EnableDisableTextbox(flexCheckDefault){
+        
+        var shipto1 = document.getElementById("shipto1");
+        shipto1.disabled = flexCheckDefault.checked?true:false;
+        if(!shipto1.disabled){
+            shipto1.focus();
+        }
+
+        var shipto2 = document.getElementById("shipto2");
+        shipto2.disabled = flexCheckDefault.checked?true:false;
+        if(!shipto2.disabled){
+            shipto2.focus();
+        }
+
+        var shipto3 = document.getElementById("shipto3");
+        shipto3.disabled = flexCheckDefault.checked?true:false;
+        if(!shipto3.disabled){
+            shipto3.focus();
+        }
+
+        var shipto4 = document.getElementById("shipto4");
+        shipto4.disabled = flexCheckDefault.checked?true:false;
+        if(!shipto4.disabled){
+            shipto4.focus();
+        }
+
+
+    }
+
+    function ResetTextbox(EnableDisableTextbox) {
+        
+        var shipto1a = document.getElementById("shipto1");
+
+        if (shipto1a.disabled) {
+        shipto1a.value = '';
+        }
+
+
+        var shipto2b = document.getElementById("shipto2");
+
+        if (shipto2b.disabled) {
+        shipto2b.value = '';
+        }
+
+        var shipto3c = document.getElementById("shipto3");
+
+        if (shipto3c.disabled) {
+        shipto3c.value = '';
+        }
+
+        var shipto4d = document.getElementById("shipto4");
+
+        if (shipto4d.disabled) {
+        shipto4d.value = '';
+        }
+    }
+
+
+</script>
+
+<script src="https://www.paypal.com/sdk/js?client-id=ATsVY4sxU6vBwq2bNMrQhe4Qm60xoZ2rE1S2UdC_ezVyqT55dmSaRCshxe2iwdPG5-WOLKJL8B-iR0qY&currency=USD"></script>
+
+<script>
+
+    var total = '{{order.get_cart_total}}'
+
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+
+
+        // locale:'es_AR',
+
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: parseFloat(total).toFixed(2)
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+    
+                submitFormData()
+    
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
+
 <script type="text/javascript">
     var shipping = '{{order.shipping}}'
-    var total = '{{order.get_cart_total}}'
 
 
     if(shipping == 'False'){
         document.getElementById('shipping-info').innerHTML = ''
     }
 
-    //no necesitamos este codigo, todo se puede enviar -- FIN --
-
-    //Revisar Funcionalidad - INICIO
-    // if (user != 'AnonymousUser'){
-	// 	document.getElementById('user-info').innerHTML = ''
-	// }
 
     if (shipping == 'False' && user != 'AnonymousUser'){
         //Hide entire form if user is logged in and shipping is false
@@ -166,10 +217,8 @@
         document.getElementById('payment-info').classList.remove("hidden");
     }
 
-    //Revisar Funcionalidad - FIN
-
     // Funcionalidad para realizar el pago.
-
+    
     var form = document.getElementById('form')
 
     form.addEventListener('submit', function(e){
@@ -185,7 +234,7 @@
 
     function submitFormData(){
         console.log('Payment button clicked')
-
+            
         var userFormData = {
             'name':null,
             'email':null,
@@ -217,14 +266,14 @@
             headers:{
                 'Content-Type':'applicaiton/json',
                 'X-CSRFToken':csrftoken,
-            },
+            }, 
             body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
 	    })
 
         .then((response) => response.json())
         .then((data) => {
             console.log('Success:', data);
-            alert('Transaction completed');
+            alert('Transacción completa. ¡Felicitaciones, su pedido estará listo en 24hs!');  
             window.location.href = "{% url 'store' %}"
         })
 

@@ -6,7 +6,7 @@
     <div id="formContent">
         <div class="fadeIn first">
             <br/><br/>
-            <img src="{% static 'images/logo2.png' %}" width="100px" alt="User Icon">
+            <img class="fondo-login" src="{% static 'images/logo.png' %}" width="300px" alt="User Icon">
             <br/><br/>
         </div>
         <form method="post">
@@ -15,9 +15,10 @@
             <input type="text" class="fadeIn second" name="email" placeholder="email">
             <input type="password" class="fadeIn third" name="password1" placeholder="Contraseña">
             <input type="password" class="fadeIn third" name="password2" placeholder="Confirmar Contraseña">
-            <input type="submit" class="fadeIn fourth" value="Registrarse">
+            <input type="submit" class="fadeIn fourth fondo-login" value="Registrarse">
         </form>
     </div>
 </div>
+
 
 {% endblock content %}

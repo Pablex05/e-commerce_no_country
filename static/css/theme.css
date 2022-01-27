@@ -7,19 +7,40 @@
 
 .oscuro{
     background-color: #353333;
-    /*text-color: #ffffff;*/
+    
+
+
 }
 
-.dark{
-    margin-bottom: 70px;
+/*.dark{
+    margin-bottom: 0px;
     margin-right: 15px;
-}
+    
+    
+}*/
 
 .btn-flotante{
-   
-    float: right;
+        display:scroll;
+        position:fixed;
+        bottom:185px;
+       left:3px;
 }
 
 
+footer{
+    color: white;
+}
 
 
+#logo{
+    width: 2rem;
+    height: 2rem;
+    margin: 0 0 0 15px;
+  }
+
+  .col-lg-4{
+    margin-top: 25px;
+  }
+
+
+ 

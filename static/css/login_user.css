@@ -1,6 +1,4 @@
-html {
-    /*background-color: #56baed;*/
-}
+
 
 
 
@@ -81,7 +79,8 @@ input[type=button], input[type=submit], input[type=reset]  {
     background-color: #56baed;
     border: none;
     color: white;
-    padding: 15px 80px;
+    /*padding: 15px 80px;*/
+    width: 85%;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -184,10 +183,7 @@ input[type=text]:placeholder {
     animation-fill-mode: both;
 }
 
-#fadeIn {
-    border: solid red 2px;
-    
-}
+
 
 @-webkit-keyframes fadeInDown {
     0% {

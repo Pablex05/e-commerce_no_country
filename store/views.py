@@ -24,14 +24,26 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from django.db.models import Q
 
 # Create your views here.
 
+
+
 def store(request):
+
     order, items, cartItems = list_product(request)
+    busqueda = request.GET.get("buscar")
     products = Product.objects.all()
-    context = {'products': products, 'cartItems': cartItems, 'shipping': False}
-    return render(request, 'store/store.html', context)
+
+    if busqueda:
+        products = Product.objects.filter(
+            Q(name__icontains = busqueda) |
+            Q(price__icontains = busqueda) 
+        
+        ).distinct()
+
+    return render(request, 'store/store.html', {'products': products, 'cartItems': cartItems, 'shipping': False})
 
 def cart(request):
     if request.user.is_authenticated:
@@ -174,18 +186,25 @@ def UpdateItem(request):
         product = Product.objects.get(id=productId)
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
-        # agregar o remover del Cart. Chequear JavaScript
+
         if action == 'add':
             orderItem.quantity = (orderItem.quantity + 1)
         elif action == 'remove':
             orderItem.quantity = (orderItem.quantity - 1)
+        elif action == 'delete':
+            orderItem.quantity = orderItem.quantity = 0
+
         orderItem.save()
+
         if orderItem.quantity <= 0:
             orderItem.delete()
+
         return JsonResponse('Item was added', safe=False)
     else:
         messages.success(request, "Tiene que INICIAR SESION")  # corregir y aplicar decorator de autenticacion
         return redirect('/')
+
+
 
 @login_required
 def processOrder(request):
